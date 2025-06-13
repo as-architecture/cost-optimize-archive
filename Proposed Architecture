@@ -1,0 +1,10 @@
++------------+       +----------------------+       +------------------------+
+|  Clients   | <---> | API Layer (Azure     | <---> | Cosmos DB “hot” (3mo)  |
+| (reads/wr) |       | Function App / API   |       +------------------------+
++------------+       +----------------------+
+                           ▲    ▲
+                Route “cold” 🔄 to       Archives to blob, query layer
+                via key-check        +------------------------+
+                                     | Cosmos “cold” via Synapse |
+                                     | + Blob Storage (Parquet)  |
+                                     +------------------------+
